@@ -1,0 +1,38 @@
+<view class="photo-container">
+  <!-- 拍照前 -->
+  <view class="camera-area" wx:if="{{!photoUrl}}">
+    <view class="camera-placeholder">
+      <text class="camera-icon">📷</text>
+      <text class="camera-tip">点击拍照或从相册选择</text>
+    </view>
+    <view class="btn btn-primary take-photo-btn" bindtap="onTakePhoto">
+      <text>拍照 / 选图</text>
+    </view>
+  </view>
+
+  <!-- 拍照后 -->
+  <view class="preview-area" wx:if="{{photoUrl}}">
+    <image class="preview-image" src="{{photoUrl}}" mode="aspectFit"/>
+    <view class="preview-actions">
+      <view class="btn btn-secondary" bindtap="onRetake">
+        <text>重新拍</text>
+      </view>
+      <view class="btn btn-primary" bindtap="onSubmit">
+        <text>使用照片</text>
+      </view>
+    </view>
+
+    <view class="supplement-box">
+      <text class="supplement-label">补充说明（可选）</text>
+      <textarea class="supplement-input" value="{{supplementText}}" bindinput="onSupplementInput" placeholder="例如：这道题我不会做，请帮我讲解..."/>
+    </view>
+  </view>
+
+  <!-- 压缩中 -->
+  <view class="loading-mask" wx:if="{{isCompressing}}">
+    <view class="loading-content">
+      <view class="loading-spinner"></view>
+      <text>图片处理中...</text>
+    </view>
+  </view>
+</view>

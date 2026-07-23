@@ -1,0 +1,59 @@
+<view class="quiz-container">
+  <!-- 进度 -->
+  <view class="progress-header">
+    <text class="progress-text">{{topic}} ({{currentIndex + 1}}/{{totalCount}})</text>
+    <view class="progress-track">
+      <view class="progress-fill" style="width: {{((currentIndex + 1) / totalCount) * 100}}%"></view>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text>题目加载中...</text>
+  </view>
+
+  <!-- 题目内容 -->
+  <view class="question-card" wx:if="{{!loading && question}}">
+    <view class="question-type">
+      <text class="type-tag {{question.type === 'choice' ? 'type-choice' : question.type === 'fill_in_blank' ? 'type-fill' : 'type-written'}}">
+        {{question.type === 'choice' ? '选择题' : question.type === 'fill_in_blank' ? '填空题' : '解答题'}}
+      </text>
+    </view>
+    <rich-text class="question-content" nodes="{{question.renderedContent || question.content}}"></rich-text>
+
+    <!-- 选择题 -->
+    <view class="options-list" wx:if="{{question.type === 'choice'}}">
+      <view class="option-item {{selectedOption === item ? 'option-selected' : ''}} {{submitted && item === question.correctAnswer ? 'option-correct' : ''}} {{submitted && selectedOption === item && item !== question.correctAnswer ? 'option-wrong' : ''}}" wx:for="{{question.options}}" wx:key="*this" data-value="{{item}}" bindtap="onSelectOption">
+        <text>{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 填空题 -->
+    <view class="fill-area" wx:if="{{question.type === 'fill_in_blank'}}">
+      <input class="fill-input" type="text" value="{{fillAnswer}}" bindinput="onFillInput" placeholder="请输入答案，多个答案用逗号分隔" disabled="{{submitted}}"/>
+    </view>
+
+    <!-- 解答题 -->
+    <view class="written-area" wx:if="{{question.type === 'written'}}">
+      <textarea class="written-input" value="{{writtenAnswer}}" bindinput="onWrittenInput" placeholder="请写出解答过程..." disabled="{{submitted}}"/>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-btn {{submitted ? 'btn-disabled' : 'btn-primary'}}" bindtap="onSubmit">
+      <text>{{submitted ? '已提交' : '提交答案'}}</text>
+    </view>
+
+    <!-- 解析 -->
+    <view class="explanation-box" wx:if="{{submitted}}">
+      <view class="result-tag {{isCorrect ? 'result-correct' : 'result-wrong'}}">
+        {{isCorrect ? '✅ 正确' : '❌ 错误'}}
+      </view>
+      <view class="explanation-title">解析</view>
+      <rich-text class="explanation-text" nodes="{{question.renderedExplanation || explanation}}"></rich-text>
+      <view class="next-btn btn-primary" bindtap="onNext">
+        <text>{{currentIndex < totalCount - 1 ? '下一题' : '完成练习'}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,73 @@
+<view class="home-container">
+  <!-- 顶部问候栏 -->
+  <view class="header-card">
+    <view class="user-info">
+      <image class="avatar" src="{{userInfo.avatarUrl || '/assets/images/logo_40.png'}}" mode="aspectFill"/>
+      <view class="greeting">
+        <text class="hello">你好，{{userInfo.nickname || '同学'}}！</text>
+        <text class="sub-text">今天继续加油学习吧</text>
+      </view>
+    </view>
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-num">{{todayStats.learnedCount}}</text>
+        <text class="stat-label">已学知识点</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{todayStats.practiceCount}}</text>
+        <text class="stat-label">今日练习</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{todayStats.duration}}</text>
+        <text class="stat-label">学习分钟</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 核心操作区 -->
+  <view class="action-row">
+    <view class="action-btn photo-btn" bindtap="onPhotoSearch">
+      <text class="action-icon">📷</text>
+      <text class="action-text">拍照搜题</text>
+    </view>
+    <view class="action-btn text-btn" bindtap="onTextQuestion">
+      <text class="action-icon">✏️</text>
+      <text class="action-text">文字提问</text>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="card quick-card">
+    <view class="card-title">快捷入口</view>
+    <view class="quick-grid">
+      <view class="quick-item" wx:for="{{quickEntries}}" wx:key="name" data-path="{{item.path}}" bindtap="onQuickEntry">
+        <text class="quick-icon">{{item.icon}}</text>
+        <text class="quick-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI 学习建议 -->
+  <view class="card suggestion-card" wx:if="{{aiSuggestion}}">
+    <view class="suggestion-header">
+      <text class="suggestion-icon">💡</text>
+      <text class="card-title" style="margin-bottom:0">AI 学习建议</text>
+    </view>
+    <text class="suggestion-text">{{aiSuggestion}}</text>
+  </view>
+
+  <!-- 最近学习记录 -->
+  <view class="card">
+    <view class="card-title">最近学习记录</view>
+    <view class="record-list" wx:if="{{recentRecords.length > 0}}">
+      <view class="record-item" wx:for="{{recentRecords}}" wx:key="id" data-item="{{item}}" bindtap="onRecordTap">
+        <text class="record-dot {{item.status === 'mastered' ? 'dot-green' : item.status === 'learning' ? 'dot-orange' : 'dot-red'}}"></text>
+        <text class="record-name">{{item.topic}}</text>
+        <text class="record-status">{{item.statusText}}</text>
+      </view>
+    </view>
+    <view class="empty-hint" wx:else>
+      <text>还没有学习记录，快去提问或练习吧</text>
+    </view>
+  </view>
+</view>

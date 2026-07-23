@@ -1,0 +1,127 @@
+.practice-container {
+  padding: 24rpx;
+  padding-bottom: 48rpx;
+}
+
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.grade-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.recommend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.recommend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+  background: var(--bg-gray);
+  border-radius: 16rpx;
+}
+
+.recommend-item:active {
+  background: #EEF0F2;
+}
+
+.recommend-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.recommend-name {
+  font-size: 30rpx;
+  color: var(--text-primary);
+}
+
+.recommend-tag {
+  display: inline-block;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+}
+
+.tag-easy { background: #E8F5E9; color: var(--success); }
+.tag-medium { background: #FFF3E0; color: var(--warning); }
+.tag-hard { background: #FFEBEE; color: var(--danger); }
+
+.recommend-action {
+  padding: 10rpx 24rpx;
+  background: var(--brand-green);
+  color: #fff;
+  border-radius: 28rpx;
+  font-size: 26rpx;
+}
+
+.knowledge-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28rpx;
+}
+
+.knowledge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.knowledge-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.knowledge-percent {
+  font-size: 28rpx;
+  color: var(--brand-green);
+  font-weight: 600;
+}
+
+.progress-bar {
+  height: 16rpx;
+  background: #E8E8E8;
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin-bottom: 16rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #007A44, #006938);
+  border-radius: 8rpx;
+  transition: width 0.3s ease;
+}
+
+.chapter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.chapter-tag {
+  padding: 10rpx 20rpx;
+  background: #fff;
+  border: 1rpx solid var(--border-color);
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.chapter-tag:active {
+  background: var(--brand-light);
+  color: var(--brand-green);
+  border-color: var(--brand-green);
+}

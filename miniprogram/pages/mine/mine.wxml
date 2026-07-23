@@ -1,0 +1,35 @@
+<view class="mine-container">
+  <!-- 用户信息卡片 -->
+  <view class="header-card mine-header">
+    <view class="user-info">
+      <image class="avatar-large" src="{{userInfo.avatarUrl || '/assets/images/logo_81.png'}}" mode="aspectFill"/>
+      <view class="user-detail">
+        <text class="user-name">{{userInfo.nickname || '微信用户'}}</text>
+        <text class="user-role">{{userInfo.role === 'admin' ? '管理员' : '普通用户'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 会员卡片 -->
+  <view class="card vip-card">
+    <view class="vip-info">
+      <view class="vip-title">🌟 会员服务</view>
+      <text class="vip-desc">解锁全部学科和无限次提问</text>
+    </view>
+    <view class="vip-btn">立即开通</view>
+  </view>
+
+  <!-- 菜单列表 -->
+  <view class="card menu-card">
+    <view class="menu-item" wx:for="{{menuList}}" wx:key="name" data-item="{{item}}" bindtap="onMenuTap">
+      <text class="menu-icon">{{item.icon}}</text>
+      <text class="menu-name">{{item.name}}</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-btn" bindtap="onLogout">
+    <text>退出登录</text>
+  </view>
+</view>

@@ -313,6 +313,7 @@ from deeptutor.api.routers import (
     chat,
     co_writer,
     dashboard,
+    feedback,
     imports,
     knowledge,
     mastery_path,
@@ -332,6 +333,7 @@ from deeptutor.api.routers import (
     system,
     unified_ws,
     voice,
+    wechat_auth,
 )
 from deeptutor.api.routers import (
     tools as tools_router,
@@ -340,6 +342,10 @@ from deeptutor.multi_user.router import router as multi_user_router  # noqa: E40
 
 # Auth router is public — login/logout/register/status require no token
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
+# WeChat mini-program login — public endpoint (no auth required)
+app.include_router(wechat_auth.router, prefix="/api/v1/auth", tags=["auth"])
+# AI 回答反馈纠错 — public endpoint (no auth required)
+app.include_router(feedback.router, prefix="/api/v1/feedback", tags=["feedback"])
 
 # All other routers require a valid session when AUTH_ENABLED=true.
 # require_auth is a no-op when AUTH_ENABLED=false, so this is safe for local use.

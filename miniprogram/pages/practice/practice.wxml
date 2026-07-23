@@ -1,0 +1,41 @@
+<view class="practice-container">
+  <!-- 年级教材切换 -->
+  <view class="header-bar">
+    <text class="grade-text">{{textbook}} · {{grade}}</text>
+  </view>
+
+  <!-- 今日智能推荐 -->
+  <view class="card">
+    <view class="card-title">📌 今日智能推荐（{{recommendations.length}}题）</view>
+    <view class="recommend-list">
+      <view class="recommend-item" wx:for="{{recommendations}}" wx:key="id" data-item="{{item}}" bindtap="onStartPractice">
+        <view class="recommend-info">
+          <text class="recommend-name">{{item.topic}}</text>
+          <text class="recommend-tag {{item.difficulty === '简单' ? 'tag-easy' : item.difficulty === '中等' ? 'tag-medium' : 'tag-hard'}}">{{item.difficulty}}</text>
+        </view>
+        <text class="recommend-action">去刷</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 按知识点练习 -->
+  <view class="card">
+    <view class="card-title">📚 按知识点练习</view>
+    <view class="knowledge-list">
+      <view class="knowledge-item" wx:for="{{knowledgeProgress}}" wx:key="category">
+        <view class="knowledge-header">
+          <text class="knowledge-name">{{item.category}}</text>
+          <text class="knowledge-percent">{{item.percent}}%</text>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{item.percent}}%"></view>
+        </view>
+        <view class="chapter-list">
+          <view class="chapter-tag" wx:for="{{item.chapters}}" wx:for-item="chapter" wx:key="*this" data-chapter="{{chapter}}" bindtap="onChapterTap">
+            {{chapter}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

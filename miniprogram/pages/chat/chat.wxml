@@ -1,0 +1,49 @@
+<view class="chat-container">
+  <!-- 消息列表 -->
+  <scroll-view class="message-list" scroll-y scroll-into-view="{{scrollToMessage}}" scroll-with-animation>
+    <view class="message-item {{item.role === 'user' ? 'message-user' : 'message-ai'}}" wx:for="{{messages}}" wx:key="id" id="msg-{{item.id}}">
+      <image class="message-avatar" src="{{item.role === 'user' ? '/assets/images/logo_40.png' : '/assets/images/logo_40.png'}}" mode="aspectFill"/>
+      <view class="message-bubble">
+        <image wx:if="{{item.image}}" class="message-image" src="{{item.image}}" mode="aspectFit" bindtap="previewImage" data-src="{{item.image}}"/>
+        <rich-text class="message-text" nodes="{{item.renderedContent || item.content}}"></rich-text>
+        <!-- 引用来源 -->
+        <view class="message-sources" wx:if="{{item.sources && item.sources.length > 0}}">
+          <text class="source-text" wx:for="{{item.sources}}" wx:for-item="source" wx:key="*this">📖 {{source.grade || source.chapter || source.title || source}}</text>
+        </view>
+        <!-- 评价手势 -->
+        <view class="message-actions" wx:if="{{item.role === 'assistant' && item.isComplete}}">
+          <text class="action-icon" data-action="thumbs_up" data-index="{{index}}" bindtap="onFeedback">👍</text>
+          <text class="action-icon" data-action="thumbs_down" data-index="{{index}}" bindtap="onFeedback">👎</text>
+          <text class="action-icon" data-action="share" data-index="{{index}}" bindtap="onFeedback">📤</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- AI 思考中 -->
+    <view class="message-item message-ai" wx:if="{{isThinking}}">
+      <image class="message-avatar" src="/assets/images/logo_40.png" mode="aspectFill"/>
+      <view class="message-bubble thinking-bubble">
+        <view class="typing-indicator">
+          <view class="dot"></view>
+          <view class="dot"></view>
+          <view class="dot"></view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部输入栏 -->
+  <view class="input-bar safe-bottom">
+    <text class="input-icon" bindtap="onAddImage">📷</text>
+    <view class="input-box">
+      <view class="pending-image" wx:if="{{pendingImage}}">
+        <image src="{{pendingImage}}" mode="aspectFill"/>
+        <text class="clear-image" bindtap="onClearImage">×</text>
+      </view>
+      <input class="chat-input" type="text" confirm-type="send" value="{{inputValue}}" bindinput="onInputChange" bindconfirm="onSend" placeholder="输入问题，AI 来解答..."/>
+    </view>
+    <view class="send-btn {{inputValue || pendingImage ? 'send-active' : ''}}" bindtap="onSend">
+      <text>发送</text>
+    </view>
+  </view>
+</view>

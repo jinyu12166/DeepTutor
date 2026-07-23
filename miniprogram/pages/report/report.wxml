@@ -1,0 +1,60 @@
+<view class="report-container">
+  <!-- 学习统计 -->
+  <view class="card stats-card">
+    <view class="stats-grid">
+      <view class="stats-item">
+        <text class="stats-num">{{stats.totalQuestions}}</text>
+        <text class="stats-label">总做题数</text>
+      </view>
+      <view class="stats-item">
+        <text class="stats-num">{{stats.correctRate}}%</text>
+        <text class="stats-label">正确率</text>
+      </view>
+      <view class="stats-item">
+        <text class="stats-num">{{stats.learnDays}}</text>
+        <text class="stats-label">学习天数</text>
+      </view>
+      <view class="stats-item">
+        <text class="stats-num">{{stats.masteredCount}}</text>
+        <text class="stats-label">已掌握</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 掌握度雷达图 -->
+  <view class="card">
+    <view class="card-title">📊 知识点掌握度</view>
+    <canvas type="2d" id="radarCanvas" class="radar-canvas" bindtap="onRadarTap"></canvas>
+  </view>
+
+  <!-- 掌握度柱状图（辅助） -->
+  <view class="card">
+    <view class="card-title">📈 各模块得分</view>
+    <view class="radar-placeholder">
+      <view class="bar-item" wx:for="{{masteryData}}" wx:key="subject">
+        <text class="bar-label">{{item.subject}}</text>
+        <view class="bar-wrap">
+          <view class="bar-fill" style="width: {{item.score}}%"></view>
+        </view>
+        <text class="bar-score">{{item.score}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 薄弱知识点 -->
+  <view class="card">
+    <view class="card-title">⚠️ 薄弱知识点</view>
+    <view class="weak-list" wx:if="{{weakPoints.length > 0}}">
+      <view class="weak-item" wx:for="{{weakPoints}}" wx:key="name" data-name="{{item.name}}" bindtap="onWeakPointTap">
+        <view class="weak-info">
+          <text class="weak-name">{{item.name}}</text>
+          <text class="weak-reason">{{item.reason}}</text>
+        </view>
+        <text class="weak-action">去练习</text>
+      </view>
+    </view>
+    <view class="empty-hint" wx:else>
+      <text>太棒了，暂时没有薄弱知识点</text>
+    </view>
+  </view>
+</view>
